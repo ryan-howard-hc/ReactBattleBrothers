@@ -1,35 +1,58 @@
-// import React from 'react';
-// import { HexGrid, Layout, Hexagon, GridGenerator, Hex } from 'react-hexgrid';
+import React, { Component } from 'react';
+import { HexGrid, Layout, Hexagon, Text, GridGenerator, Hex, HexUtils } from 'react-hexgrid';
+import configs from './configurations.json';
 
-// function HexagonalBoard({ size }) {
-//   const renderHexagons = () => {
-//     const hexagons = [];
-//     for (let q = -size; q <= size; q++) {
-//       for (let r = Math.max(-size, -q - size); r <= Math.min(size, -q + size); r++) {
-//         const s = -q - r;
-//         hexagons.push({ q, r, s });
-//       }
-//     }
-//     return hexagons.map((hexagon, index) => (
-//       <Hexagon
-//         key={index}
-//         q={hexagon.q}
-//         r={hexagon.r}
-//         s={hexagon.s}
-//         fill="white" 
-//       >
-//         <text x="0" y="5" fill="black" fontSize="8">{`${hexagon.q},${hexagon.r},${hexagon.s}`}</text>
-//       </Hexagon>
-//     ));
-//   };
+class HexagonalBoard extends Component {
+  constructor(props) {
+    super(props);
+    const config = configs['hexagon'];
+    const generator = GridGenerator.getGenerator(config.map);
+    const hexagons = generator.apply(this, config.mapProps);
+    this.state = { hexagons, config };
+  }
 
-//   return (
-//     <HexGrid width={800} height={600}>
-//       <Layout size={{ x: 1, y: 1 }} flat={true} spacing={1.1} origin={{ x: 0, y: 0 }}>
-//         {renderHexagons()}
-//       </Layout>
-//     </HexGrid>
-//   );
-// }
+  changeType(event) {
+    const name = event.currentTarget.value;
+    const config = configs[name];
+    const generator = GridGenerator.getGenerator(config.map);
+    const hexagons = generator.apply(this, config.mapProps);
+    this.setState({ hexagons, config });
+  }
 
-// export default HexagonalBoard;
+  render() {
+    const { hexagons, config } = this.state;
+    const layout = config.layout;
+    const size = { x: layout.width, y: layout.height };
+    return (
+      <div className="App">
+        <h2>Select grid type and configuration from dropdown.</h2>
+        <div>
+          <strong>Template: </strong>
+          <select onChange={(ev) => this.changeType(ev)}>
+            {Object.keys(configs).map((type) => (
+              <option name={type}>{type}</option>
+            ))}
+          </select>
+        </div>
+        <hr />
+        <HexGrid width={config.width} height={config.height}>
+          <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
+            {
+              // note: key must be unique between re-renders.
+              // using config.mapProps+i makes a new key when the goal template chnages.
+              hexagons.map((hex, i) => (
+                <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s}>
+                  <Text>{HexUtils.getID(hex)}</Text>
+                </Hexagon>
+              ))
+            }
+          </Layout>
+        </HexGrid>
+      </div>
+    );
+  }
+}
+
+export default HexagonalBoard;
+
+

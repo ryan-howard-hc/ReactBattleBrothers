@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import HexagonalBoard from '../src/Board/HexBoard.js';
+import HexagonalBoard from './Board/HexBoard.js';
 
 function App() {
   return (
