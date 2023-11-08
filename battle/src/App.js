@@ -5,9 +5,7 @@ import HexagonalBoard from './Board/HexBoard.js';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      <HexagonalBoard size={1} />
-      </header>
+      <HexagonalBoard/>
     </div>
   );
 }
