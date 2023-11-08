@@ -5,7 +5,7 @@ import configs from './configurations.json';
 class HexagonalBoard extends Component {
   constructor(props) {
     super(props);
-    const config = configs['hexagon'];
+    const config = configs['rectangle'];
     const generator = GridGenerator.getGenerator(config.map);
     const hexagons = generator.apply(this, config.mapProps);
     this.state = { hexagons, config };
@@ -25,7 +25,7 @@ class HexagonalBoard extends Component {
     const size = { x: layout.width, y: layout.height };
     return (
       <div className="App">
-        <h2>Select grid type and configuration from dropdown.</h2>
+        {/* <h2>Select grid type and configuration from dropdown.</h2>
         <div>
           <strong>Template: </strong>
           <select onChange={(ev) => this.changeType(ev)}>
@@ -34,7 +34,7 @@ class HexagonalBoard extends Component {
             ))}
           </select>
         </div>
-        <hr />
+        <hr /> */}
         <HexGrid width={config.width} height={config.height}>
           <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
             {
