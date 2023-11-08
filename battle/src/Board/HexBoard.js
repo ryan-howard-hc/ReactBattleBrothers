@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { HexGrid, Layout, Hexagon, Text, GridGenerator, Hex, HexUtils } from 'react-hexgrid';
 import configs from './configurations.json';
+import './board.css';
+import PlayerToken from './Player/DefaultPlayer';
 
 class HexagonalBoard extends Component {
   constructor(props) {
@@ -8,7 +10,11 @@ class HexagonalBoard extends Component {
     const config = configs['rectangle'];
     const generator = GridGenerator.getGenerator(config.map);
     const hexagons = generator.apply(this, config.mapProps);
-    this.state = { hexagons, config };
+
+    const initialPlayerTokenPosition = { q: 0, r: 0, s: 0 };
+
+
+    this.state = { hexagons, config, playerTokenPosition: initialPlayerTokenPosition };
   }
 
   changeType(event) {
@@ -20,32 +26,22 @@ class HexagonalBoard extends Component {
   }
 
   render() {
-    const { hexagons, config } = this.state;
+    const { hexagons, config, playerTokenPosition } = this.state;
     const layout = config.layout;
     const size = { x: layout.width, y: layout.height };
+
     return (
       <div className="App">
-        {/* <h2>Select grid type and configuration from dropdown.</h2>
-        <div>
-          <strong>Template: </strong>
-          <select onChange={(ev) => this.changeType(ev)}>
-            {Object.keys(configs).map((type) => (
-              <option name={type}>{type}</option>
-            ))}
-          </select>
-        </div>
-        <hr /> */}
         <HexGrid width={config.width} height={config.height}>
           <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
-            {
-              // note: key must be unique between re-renders.
-              // using config.mapProps+i makes a new key when the goal template chnages.
-              hexagons.map((hex, i) => (
-                <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s}>
-                  <Text>{HexUtils.getID(hex)}</Text>
-                </Hexagon>
-              ))
-            }
+            {hexagons.map((hex, i) => (
+              <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s} className="grassy-hexagon">
+                <Text>{HexUtils.getID(hex)}</Text>
+                {playerTokenPosition.q === hex.q && playerTokenPosition.r === hex.r && (
+                  <PlayerToken /> 
+                )}
+              </Hexagon>
+            ))}
           </Layout>
         </HexGrid>
       </div>
