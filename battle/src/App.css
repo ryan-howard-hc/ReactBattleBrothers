@@ -51,9 +51,7 @@
   user-drag: element;
 }
 
-svg {
 
-}
 svg g {
   fill: #4CAF50;
   fill-opacity: 0.6;
@@ -86,3 +84,9 @@ svg path {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+/* 
+.HexagonalBoard {
+  width: 1900px;
+  height: 925px;
+} */
+
