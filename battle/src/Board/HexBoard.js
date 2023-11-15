@@ -52,6 +52,15 @@ class HexagonalBoard extends Component {
     this.loadConfiguration(name);
   }
 
+  updatePlayerTokenPosition = (newPosition) => {
+    this.setState({ playerTokenPosition: newPosition });
+  };
+
+  handleMove = (newQ, newR, newS) => {
+    // Call updatePlayerTokenPosition to update the player's position
+    this.updatePlayerTokenPosition({ q: newQ, r: newR, s: newS });
+  };
+
   render() {
     const { hexagons, config, playerTokenPosition, gridSize } = this.state;
 
@@ -68,14 +77,12 @@ class HexagonalBoard extends Component {
       <HexGrid width={gridSize.width} height={gridSize.height}>
         {layout && (
           <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
-            {hexagons.map((hex, i) => (
-              <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s} className="grid">
-                <Text>{HexUtils.getID(hex)}</Text>
-                {playerTokenPosition.q === hex.q && playerTokenPosition.r === hex.r && (
-                  <PlayerToken />
-                )}
-              </Hexagon>
-            ))}
+{hexagons.map((hex, i) => (
+  <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s} className="grid">
+    <Text>{HexUtils.getID(hex)}</Text>
+    <PlayerToken position={hex} currentPlayerPosition={playerTokenPosition} />
+  </Hexagon>
+))}
           </Layout>
         )}
       </HexGrid>
