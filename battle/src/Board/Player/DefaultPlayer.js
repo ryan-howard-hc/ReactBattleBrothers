@@ -15,10 +15,11 @@ const PlayerToken = ({ position, currentPlayerPosition }) => {
     left: x,
     display: isVisible ? 'block' : 'none',
   };
-
+  console.log('PlayerToken rendered for position:', position);
   return (
     <div className="player-token" style={tokenStyle}>
       <img src={defaultsprite} alt="Player Token" />
+      {/* Player Token Placeholder Text */}
     </div>
   );
 };
