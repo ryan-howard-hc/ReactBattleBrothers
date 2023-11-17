@@ -4,9 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// const textElement = document.querySelector("#root > div > div > svg > g > g:nth-child(6) > g > text");
+// if (textElement) {
+//   console.log(textElement.textContent); 
+// }
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    
     <App />
   </React.StrictMode>
 );
