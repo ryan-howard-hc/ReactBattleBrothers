@@ -5,6 +5,39 @@ import './board.css';
 import PlayerToken from './Player/DefaultPlayer';
 import sprite from '../Board/Player/defaultsprite.png';
 
+
+
+class CustomHexagon extends Component {
+  render() {
+    const { q, r, s, spriteSrc } = this.props;
+
+    const hexagonStyle = {
+      fill: 'transparent',
+      stroke: 'none',
+    };
+
+    // const imageStyle = {
+    //   width: '100%',
+    //   height: '100%',
+    //   pointerEvents: 'none',
+    // };
+
+    return (
+      <Hexagon q={q} r={r} s={s} style={hexagonStyle}>
+        <image
+          href={spriteSrc}
+          x="-25%" 
+          y="-25%" 
+          width="5%" 
+          height="5%" 
+          // style={imageStyle}
+        />
+      </Hexagon>
+    );
+  }
+}
+
+
 class HexagonalBoard extends Component {
   constructor(props) {
     super(props);
@@ -78,11 +111,13 @@ class HexagonalBoard extends Component {
           {layout && (
             <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
               {hexagons.map((hex, i) => (
-                <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s} className="grid">
-  <img src={sprite} alt="Player" className="player-image" />
-  <PlayerToken position={hex} />
-</Hexagon>
-
+                <CustomHexagon
+                  key={config.mapProps + i}
+                  q={hex.q}
+                  r={hex.r}
+                  s={hex.s}
+                  spriteSrc={sprite} // sprite source as a prop
+                />
               ))}
             </Layout>
           )}
