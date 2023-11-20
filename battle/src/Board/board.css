@@ -44,10 +44,10 @@ svg path {
   stroke-linejoin: round;
 }
 
-.player-token {
+/* .player-token {
   display: none;
-}
+} */
 
-.player-token.visible {
+/* .player-token.visible {
   display: block;
-}
+} */

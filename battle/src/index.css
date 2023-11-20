@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.player-token {
+  position: absolute;
+  left: 0; /* Adjust these values as needed */
+  top: 0; /* Adjust these values as needed */
+  z-index: 100; /* Ensure it's above other elements */
+}
+
+/* Add hover effects if needed */
+.player-token:hover {
+  border: 1px solid red; /* Example border on hover */
+}
