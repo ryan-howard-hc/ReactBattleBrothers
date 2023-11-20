@@ -10,6 +10,7 @@ class HexagonalBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      
       // hexagons: [],
       // config: null, // Initialize config
       // playerTokenPosition: { q: 0, r: 0, s: 0 },
@@ -53,17 +54,22 @@ class HexagonalBoard extends Component {
     const name = event.currentTarget.value;
     this.loadConfiguration(name);
   }
-
-  // updatePlayerTokenPosition = (newPosition) => {
-  //   this.setState({ playerTokenPosition: newPosition });
-  // };
-
-  // handleMove = (newQ, newR, newS) => {
-  //   // Call updatePlayerTokenPosition to update the player's position
-  //   this.updatePlayerTokenPosition({ q: newQ, r: newR, s: newS });
-  // };
+  
+  addNewToken = (coordinates, spriteSrc) => {
+    const { playerTokens } = this.state;
+    const newToken = {
+      q: coordinates.q,
+      r: coordinates.r,
+      s: coordinates.s,
+      id: playerTokens.length + 1,
+      spriteSrc,
+    };
+    this.setState({ playerTokens: [...playerTokens, newToken] });
+  };
 
   render() {
+    const { playerTokens } = this.state;
+
     const { hexagons, config, gridSize } = this.state;
 
     if (!config) {
@@ -76,15 +82,17 @@ class HexagonalBoard extends Component {
     return (
       <div className="App">
         <HexGrid width={gridSize.width} height={gridSize.height}>
-          {layout && (
+          
+        {layout && (
             <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
-              {hexagons.map((hex, i) => (
+              {/*  RENDER EXISTING TOKENSs */}
+              {playerTokens.map((token) => (
                 <PlayerToken
-                  key={config.mapProps + i}
-                  q={hex.q}
-                  r={hex.r}
-                  s={hex.s}
-                  spriteSrc={sprite} // sprite source as a prop
+                  key={token.id}
+                  q={token.q}
+                  r={token.r}
+                  s={token.s}
+                  spriteSrc={token.spriteSrc}
                 />
               ))}
             </Layout>
