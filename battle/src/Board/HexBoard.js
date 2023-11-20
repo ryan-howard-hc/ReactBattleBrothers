@@ -5,6 +5,7 @@ import './board.css';
 import PlayerToken from './Player/DefaultPlayer';
 import sprite from '../Board/Player/defaultsprite.png';
 
+
 class HexagonalBoard extends Component {
   constructor(props) {
     super(props);
@@ -78,11 +79,13 @@ class HexagonalBoard extends Component {
           {layout && (
             <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
               {hexagons.map((hex, i) => (
-                <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s} className="grid">
-  <img src={sprite} alt="Player" className="player-image" />
-  <PlayerToken position={hex} />
-</Hexagon>
-
+                <PlayerToken
+                  key={config.mapProps + i}
+                  q={hex.q}
+                  r={hex.r}
+                  s={hex.s}
+                  spriteSrc={sprite} // sprite source as a prop
+                />
               ))}
             </Layout>
           )}

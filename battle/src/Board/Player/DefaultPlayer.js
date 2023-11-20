@@ -1,17 +1,29 @@
 import React from 'react';
-import defaultsprite from './defaultsprite.png';
+import { HexGrid, Layout, Hexagon, GridGenerator } from 'react-hexgrid';
 
-const hexSize = 50;
+const PlayerToken = ({ q, r, s, spriteSrc }) => {
+  const hexagonStyle = {
+    fill: 'transparent',
+    stroke: 'none',
+  };
 
-const PlayerToken = ({ position }) => {
-  const x = position.q * hexSize * 1.5;
-  const y = position.r * hexSize * 1.5;
+  // const imageStyle = {
+  //   width: '100%',
+  //   height: '100%',
+  //   pointerEvents: 'none',
+  // };
 
   return (
-    <div className="player-token" >
-      <image href={defaultsprite} alt="Player Token" />
-      {/* Player Token Placeholder Text */}
-    </div>
+    <Hexagon q={q} r={r} s={s} style={hexagonStyle}>
+      <image
+        href={spriteSrc}
+        x="-25%" 
+        y="-25%" 
+        width="5%" 
+        height="5%" 
+        // style={imageStyle}
+      />
+    </Hexagon>
   );
 };
 
