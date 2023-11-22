@@ -1,16 +1,46 @@
 import React from 'react';
 import { HexGrid, Layout, Hexagon, GridGenerator, HexUtils, Text } from 'react-hexgrid';
 
-const PlayerToken = ({ q, r, s, spriteSrc, addNewToken }) => {
-  const hexagonStyle = {
-    fill: 'transparent',
-    stroke: 'none',
-  };
+class PlayerToken extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      q: 0,
+      r: 0,
+      s: 0,
+    };
+  }
 
-  const handleAddToken = () => {
-    const newCoordinates = { q: q + 1, r: r - 1, s: s };
-    addNewToken(newCoordinates, spriteSrc);
-  };
+  componentDidMount() {
+    const { q, r, s } = this.props;
+    this.setState({ q, r, s });
+  }
+
+  render() {
+    const { q, r, s } = this.state;
+    const { spriteSrc } = this.props;
+
+    const hexagonStyle = {
+      fill: 'transparent',
+      stroke: 'none',
+    };
+
+    return (
+      <Hexagon q={q} r={r} s={s} style={hexagonStyle}>
+        <Text>{`${q},${r},${s}`}</Text>
+        <image
+          href={spriteSrc}
+          x="-2.5%"
+          y="-2.5%"
+          width="5%"
+          height="5%"
+        />
+      </Hexagon>
+    );
+  }
+}
+
+export default PlayerToken;
 
     // updatePlayerTokenPosition = (newPosition) => {
   //   this.setState({ playerTokenPosition: newPosition });
@@ -27,18 +57,3 @@ const PlayerToken = ({ q, r, s, spriteSrc, addNewToken }) => {
   //   pointerEvents: 'none',
   // };
 
-  return (
-    <Hexagon q={q} r={r} s={s} style={hexagonStyle}>
-      <Text>{`${q},${r},${s}`}</Text>
-      <image
-        href={spriteSrc}
-        x="-2.5%"
-        y="-2.5%"
-        width="5%"
-        height="5%"
-      />
-    </Hexagon>
-  );
-};
-
-export default PlayerToken;
