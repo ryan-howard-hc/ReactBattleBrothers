@@ -5,15 +5,14 @@ import './board.css';
 import PlayerToken from './Player/DefaultPlayer';
 import sprite from '../Board/Player/defaultsprite.png';
 
-
 class HexagonalBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // hexagons: [],
-      // config: null, // Initialize config
-      // playerTokenPosition: { q: 0, r: 0, s: 0 },
-      // gridSize: { width: 100, height: 100 },
+      hexagons: [],
+      config: null,
+      gridSize: { width: 100, height: 100 },
+      playerTokenPosition: { q: 0, r: 0, s: 0 }, // Store player token position
     };
   }
 
@@ -49,22 +48,13 @@ class HexagonalBoard extends Component {
     }
   };
 
-  changeType(event) {
-    const name = event.currentTarget.value;
-    this.loadConfiguration(name);
-  }
-
-  // updatePlayerTokenPosition = (newPosition) => {
-  //   this.setState({ playerTokenPosition: newPosition });
-  // };
-
-  // handleMove = (newQ, newR, newS) => {
-  //   // Call updatePlayerTokenPosition to update the player's position
-  //   this.updatePlayerTokenPosition({ q: newQ, r: newR, s: newS });
-  // };
+  // Update the position of the single player token
+  updatePlayerTokenPosition = (newPosition) => {
+    this.setState({ playerTokenPosition: newPosition });
+  };
 
   render() {
-    const { hexagons, config, gridSize } = this.state;
+    const { hexagons, config, gridSize, playerTokenPosition } = this.state;
 
     if (!config) {
       return null;
@@ -76,19 +66,34 @@ class HexagonalBoard extends Component {
     return (
       <div className="App">
         <HexGrid width={gridSize.width} height={gridSize.height}>
-          {layout && (
-            <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
-              {hexagons.map((hex, i) => (
-                <PlayerToken
-                  key={config.mapProps + i}
-                  q={hex.q}
-                  r={hex.r}
-                  s={hex.s}
-                  spriteSrc={sprite} // sprite source as a prop
-                />
-              ))}
-            </Layout>
-          )}
+        {layout && (
+  <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
+    {hexagons.map((hex, i) => (
+      <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s}>
+        <Text>{`${hex.q},${hex.r},${hex.s}`}</Text>
+        {/* Render the player token at coordinates 0,0,0 */}
+        {hex.q === 0 && hex.r === 0 && hex.s === 0 && (
+          <PlayerToken
+            q={hex.q}
+            r={hex.r}
+            s={hex.s}
+            spriteSrc={sprite}
+            updatePlayerTokenPosition={this.updatePlayerTokenPosition}
+          />
+        )}
+      </Hexagon>
+    ))}
+  </Layout>
+)}
+
+          {/* Render the single player token outside the hexagon loop */}
+          <PlayerToken
+            q={playerTokenPosition.q}
+            r={playerTokenPosition.r}
+            s={playerTokenPosition.s}
+            spriteSrc={sprite}
+            updatePlayerTokenPosition={this.updatePlayerTokenPosition}
+          />
         </HexGrid>
       </div>
     );
