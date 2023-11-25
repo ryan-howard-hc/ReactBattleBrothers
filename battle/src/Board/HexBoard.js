@@ -67,9 +67,9 @@ class HexagonalBoard extends Component {
       <div className="App">
         <HexGrid width={gridSize.width} height={gridSize.height}>
         {layout && (
-  <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
-    {hexagons.map((hex, i) => (
-      <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s}>
+          <Layout size={size} flat={layout.flat} spacing={layout.spacing} origin={config.origin}>
+  {hexagons.map((hex, i) => (
+    <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s} onClick={() => this.updatePlayerTokenPosition({ q: hex.q, r: hex.r, s: hex.s })}>
         <Text>{`${hex.q},${hex.r},${hex.s}`}</Text>
         {/* Render the player token at coordinates 0,0,0 */}
         {hex.q === 0 && hex.r === 0 && hex.s === 0 && (
