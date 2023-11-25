@@ -11,6 +11,11 @@ class PlayerToken extends React.Component {
     };
   }
 
+  handleClick = () => {
+    const { q, r, s } = this.state;
+    this.props.updatePlayerTokenPosition({ q, r, s });
+  };
+
   componentDidMount() {
     const { q, r, s } = this.props;
     this.setState({ q, r, s });
@@ -26,7 +31,7 @@ class PlayerToken extends React.Component {
     };
 
     return (
-      <Hexagon q={q} r={r} s={s} style={hexagonStyle}>
+      <Hexagon q={q} r={r} s={s} style={hexagonStyle} onClick={this.handleClick}>
         <Text>{`${q},${r},${s}`}</Text>
         <image
           href={spriteSrc}
