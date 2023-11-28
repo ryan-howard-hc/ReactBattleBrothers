@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Hexagon from './Hexagon'; 
+import Hexagon from './HexagonEXP2'; 
 import './board.css';
 
 class HexagonalBoard extends Component {
@@ -30,7 +30,7 @@ class HexagonalBoard extends Component {
   };
 
   renderRow = (cols, row) => {
-    const hexSize = 50; 
+    const hexSize = 80; 
 
     const hexagons = [];
     for (let q = 0; q < cols; q++) {
@@ -41,13 +41,12 @@ class HexagonalBoard extends Component {
 
   render() {
     const { gridSize } = this.state;
-    const rows = 10; // Number of rows
-    const cols = 1; // Number of columns (in this case, rendering a vertical row)
+    const rows = 12;
+    const cols = 1;
 
     return (
       <div className="App">
         <div className="hexGridContainer" style={{ width: gridSize.width, height: gridSize.height, position: 'relative' }}>
-          {/* Render vertical row of hexagons */}
           {[...Array(rows)].map((_, index) => (
             <div key={index} style={{ display: 'flex' }}>
               {this.renderRow(cols, index)}
