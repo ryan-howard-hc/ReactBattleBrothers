@@ -1,4 +1,4 @@
-[draggable] {
+/* [draggable] {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
@@ -31,9 +31,9 @@ svg g polygon {
 svg g text {
   font-size: 0.2em;
   opacity: .1;
-  /* fill: #000; */
-  /* fill-opacity: 0.6; */
-  /* transition: fill-opacity .2s; */
+  fill: #000;
+  fill-opacity: 0.6;
+  transition: fill-opacity .2s;
 }
 svg path {
   fill: none;
@@ -42,7 +42,7 @@ svg path {
   stroke-opacity: 0.3;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
+} */
 
 /* .player-token {
   display: none;
@@ -51,3 +51,5 @@ svg path {
 /* .player-token.visible {
   display: block;
 } */
+
+
