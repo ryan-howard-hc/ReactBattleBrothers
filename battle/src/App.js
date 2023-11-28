@@ -1,14 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import HexagonalBoard from './Board/HexBoard.js';
+import React from 'react';
+import HexagonLayout from '../src/Board/HexagonLayout';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <HexagonalBoard/>
+    <div className="app">
+      <HexagonLayout rows={3} cols={1} /> {/* Adjust rows and cols as needed */}
     </div>
   );
-}
+};
 
 export default App;
 
